@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckh0txb84chc8"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_id1en"]
+[ext_resource type="Texture2D" uid="uid://bnjx4op1mowg0" path="res://assets/cannon/turret_02_mk3.png" id="1_o8ngl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki2ta"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(0, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybux4"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(128, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nexb"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(256, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0q06"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(384, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsopf"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(512, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hagsi"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(640, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbtjy"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(768, 0, 128, 112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06gsa"]
+atlas = ExtResource("1_o8ngl")
+region = Rect2(896, 0, 128, 112)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duom5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki2ta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybux4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nexb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0q06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsopf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hagsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbtjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06gsa")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xa2ks"]
+size = Vector2(37, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e54p6"]
+size = Vector2(37.0649, 38.9348)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(23, 37)
+rotation = 3.13834
+up_direction = Vector2(0.0133188, 0.999911)
+script = ExtResource("1_id1en")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_duom5")
+animation = &"shoot"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -1)
+shape = SubResource("RectangleShape2D_xa2ks")
+
+[node name="DropPosition" type="Marker2D" parent="."]
+position = Vector2(-0.886152, -35.0031)
+
+[node name="DropTimeout" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1.5618, -9.4674)
+shape = SubResource("RectangleShape2D_e54p6")
+
+[connection signal="timeout" from="DropTimeout" to="." method="_on_drop_timeout_timeout"]
